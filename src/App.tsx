@@ -42,32 +42,30 @@ export function App() {
     <>
       <main className="flex flex-col items-center">
         {/* Carousel de Categorias */}
-        <div className="h-40">
-
-        </div>
-        <div className="sticky bg-white z-20 top-0 w-full sm:w-[65%] p-2">
+        <div className="h-20"></div>
+        <div className="sticky bg-white z-20 top-0  w-full sm:w-[65%] p-2">
           <h3 className="font-semibold text-2xl">Categorias</h3>
-          <Carousel opts={{ align: "start" }} className="my-3">
-            <CarouselContent>
-              {categories.map(cat => (
-                <CarouselItem
-                  key={cat.id}
-                  className="basis-1/3 sm:basis-1/5 cursor-pointer"
-                  onClick={() => scrollToCategory(cat.id)}
-                >
-                  <div className="flex flex-col items-center">
-                    <img
-                      src={cat.foto || ""}
-                      alt={cat.nome}
-                      className="rounded-full h-[100px] w-[100px] object-cover"
-                    />
-                    <h2 className="mt-2 text-center">{cat.nome}</h2>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+            <Carousel opts={{ align: "start" }} className="my-3">
+              <CarouselContent>
+                {categories.map(cat => (
+                  <CarouselItem
+                    key={cat.id}
+                    className="basis-1/3 sm:basis-1/7 cursor-pointer"
+                    onClick={() => scrollToCategory(cat.id)}
+                  >
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={cat.foto || ""}
+                        alt={cat.nome}
+                        className="rounded-full h-[70px] w-[70px] sm:h-[100px] sm:w-[100px] object-cover"
+                      />
+                      <h2 className="mt-2 text-center">{cat.nome}</h2>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
 
         {/* Seções de Produtos por Categoria */}
         <div className="w-full sm:w-[65%] p-2 space-y-8">
@@ -84,10 +82,10 @@ export function App() {
                     <div
                       key={prod.id}
                       className="
-    flex flex-row items-start gap-4
-    border p-4 rounded shadow hover:shadow-md
-    transition cursor-pointer
-  "
+                      flex flex-row items-start gap-4
+                      border p-4 rounded shadow hover:shadow-md
+                      transition cursor-pointer
+                    "
                       onClick={() => {
                         setSelectedProduct(prod);
                         setDrawerOpen(true);

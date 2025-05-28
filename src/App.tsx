@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Loading } from "./components/Loading";
 import { useCategories } from "./hooks/useCategories";
 import type { Product } from "./services/products";
@@ -8,7 +8,6 @@ import { Carousel, CarouselContent, CarouselItem } from "./components/ui/carouse
 import {
   Drawer,
   DrawerContent,
-  DrawerClose,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
@@ -43,7 +42,10 @@ export function App() {
     <>
       <main className="flex flex-col items-center">
         {/* Carousel de Categorias */}
-        <div className="w-full sm:w-[65%] p-2">
+        <div className="h-40">
+
+        </div>
+        <div className="sticky bg-white z-20 top-0 w-full sm:w-[65%] p-2">
           <h3 className="font-semibold text-2xl">Categorias</h3>
           <Carousel opts={{ align: "start" }} className="my-3">
             <CarouselContent>
@@ -59,7 +61,7 @@ export function App() {
                       alt={cat.nome}
                       className="rounded-full h-[100px] w-[100px] object-cover"
                     />
-                    <h2 className="mt-2">{cat.nome}</h2>
+                    <h2 className="mt-2 text-center">{cat.nome}</h2>
                   </div>
                 </CarouselItem>
               ))}

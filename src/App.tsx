@@ -145,10 +145,10 @@ export function App() {
                     }}
                   >
                     {/* Texto à esquerda */}
-                    <div className="flex-1 flex flex-col justify-between text-left">
+                    <div className="flex-1 h-full flex flex-col justify-between text-left">
                       <h3 className="text-lg font-medium">{prod.nome}</h3>
                       <p className="text-sm text-gray-600 my-2">{prod.descritivo}</p>
-                      {prod.preco !== "" && (
+                      {prod.preco !== null && (
                         <p className="font-semibold text-[#ae3537]">
                           R$ {prod.preco}
                         </p>

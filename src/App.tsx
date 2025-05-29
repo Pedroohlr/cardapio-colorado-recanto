@@ -29,9 +29,15 @@ export function App() {
   }, [categories, products]);
 
   const scrollToCategory = (id: number) => {
-    const el = document.getElementById(`category-${id}`);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const el = document.getElementById(`category-${id}`);
+  const header = document.querySelector('.sticky');
+  const headerH = header?.getBoundingClientRect().height || 0;
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+};
+
 
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -41,31 +47,35 @@ export function App() {
   return (
     <>
       <main className="flex flex-col items-center">
-        {/* Carousel de Categorias */}
         <div className="h-20"></div>
-        <div className="sticky bg-white z-20 top-0  w-full sm:w-[65%] p-2">
+        {/* Mantemos o título estático */}
+        <div className="w-full sm:w-[65%] p-2 mx-auto">
           <h3 className="font-semibold text-2xl">Categorias</h3>
-            <Carousel opts={{ align: "start" }} className="my-3">
-              <CarouselContent>
-                {categories.map(cat => (
-                  <CarouselItem
-                    key={cat.id}
-                    className="basis-1/3 sm:basis-1/7 cursor-pointer"
-                    onClick={() => scrollToCategory(cat.id)}
-                  >
-                    <div className="flex flex-col items-center">
-                      <img
-                        src={cat.foto || ""}
-                        alt={cat.nome}
-                        className="rounded-full h-[70px] w-[70px] sm:h-[100px] sm:w-[100px] object-cover"
-                      />
-                      <h2 className="mt-2 text-center">{cat.nome}</h2>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
+        </div>
+
+        {/* Só o carrossel fica sticky */}
+        <div className="sticky top-0 bg-white z-20 w-full sm:w-[65%] p-2 mx-auto">
+          <Carousel opts={{ align: "start" }} className="my-2">
+            <CarouselContent>
+              {categories.map(cat => (
+                <CarouselItem
+                  key={cat.id}
+                  className="basis-1/3 sm:basis-1/7 cursor-pointer"
+                  onClick={() => scrollToCategory(cat.id)}
+                >
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={cat.foto || ""}
+                      alt={cat.nome}
+                      className="rounded-full h-[70px] w-[70px] sm:h-[100px] sm:w-[100px] object-cover"
+                    />
+                    <h2 className="mt-2 text-center">{cat.nome}</h2>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
 
         {/* Seções de Produtos por Categoria */}
         <div className="w-full sm:w-[65%] p-2 space-y-8">
@@ -101,7 +111,7 @@ export function App() {
                       {/* Imagem à direita */}
                       <div className="flex-shrink-0">
                         <img
-                          src={prod.foto || ""}
+                          src={prod.foto || "imgs/logo-colorado.png"}
                           alt={prod.nome}
                           className="w-32 h-32 object-cover rounded"
                         />

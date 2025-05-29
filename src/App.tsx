@@ -188,9 +188,10 @@ export function App() {
               className="w-40 h-40 object-cover rounded"
             />
           </div>
-          <p className="font-semibold mb-4 text-center text-white">
+         {selectedProduct?.preco !== null && (
+           <p className="font-semibold mb-4 text-center text-white">
             Preço: R$ {selectedProduct?.preco}
-          </p>
+          </p>)}
           <DrawerFooter className="flex justify-end">
             <Button variant="outline" onClick={() => setDrawerOpen(false)}>
               Fechar

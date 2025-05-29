@@ -1,4 +1,3 @@
-// src/App.tsx
 import { useState, useMemo } from "react";
 import { Loading } from "./components/Loading";
 import { useCategories } from "./hooks/useCategories";
@@ -14,11 +13,17 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { Button } from "./components/ui/button";
+import { TiArrowBack } from "react-icons/ti";
+import { Separator } from "./components/ui/separator";
 
 export function App() {
   const { categories, loading: loadingCats } = useCategories();
   const { products, loading: loadingProds } = useProducts();
   const loading = loadingCats || loadingProds;
+
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const productsByCategory = useMemo(() => {
     const map: Record<number, Product[]> = {};
@@ -29,50 +34,78 @@ export function App() {
   }, [categories, products]);
 
   const scrollToCategory = (id: number) => {
-  const el = document.getElementById(`category-${id}`);
-  const header = document.querySelector('.sticky');
-  const headerH = header?.getBoundingClientRect().height || 0;
-  if (el) {
-    const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
-    window.scrollTo({ top, behavior: 'smooth' });
-  }
-};
-
-
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+    setActiveCategory(id);
+    const el = document.getElementById(`category-${id}`);
+    const header = document.querySelector('.sticky');
+    const headerH = header?.getBoundingClientRect().height || 0;
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  };
 
   if (loading) return <Loading />;
 
   return (
     <>
       <main className="flex flex-col items-center">
-        <div className="h-20"></div>
-        {/* Mantemos o título estático */}
+        {/* Header */}
+        <section className="w-full sm:w-[65%] flex flex-col items-center mt-3">
+          <img
+            src="imgs/logo-colorado.png"
+            alt="logo colorado"
+            className="w-[200px] rounded-2xl border-2 mb-2 z-20 shadow-2xl"
+          />
+          <img src="imgs/banner.jpg" alt="banner" className="w-full mb-4" />
+          <div className="flex justify-center w-full px-4">
+            <Button
+              className="bg-[#d10000] hover:bg-[#da5f5f]"
+              onClick={() => window.location.href = "https://choperiacolorado.com.br/"}
+            >
+              <TiArrowBack />
+              Voltar para o site
+            </Button>
+          </div>
+        </section>
+
+        <Separator className="my-4 bg-[#333]" />
+
+        {/* Título estático */}
         <div className="w-full sm:w-[65%] p-2 mx-auto">
           <h3 className="font-semibold text-2xl">Categorias</h3>
         </div>
 
-        {/* Só o carrossel fica sticky */}
+        {/* Carrossel sticky */}
         <div className="sticky top-0 bg-white z-20 w-full sm:w-[65%] p-2 mx-auto">
           <Carousel opts={{ align: "start" }} className="my-2">
             <CarouselContent>
-              {categories.map(cat => (
-                <CarouselItem
-                  key={cat.id}
-                  className="basis-1/3 sm:basis-1/7 cursor-pointer"
-                  onClick={() => scrollToCategory(cat.id)}
-                >
-                  <div className="flex flex-col items-center">
-                    <img
-                      src={cat.foto || ""}
-                      alt={cat.nome}
-                      className="rounded-full h-[70px] w-[70px] sm:h-[100px] sm:w-[100px] object-cover"
-                    />
-                    <h2 className="mt-2 text-center">{cat.nome}</h2>
-                  </div>
-                </CarouselItem>
-              ))}
+              {categories.map(cat => {
+                const isActive = cat.id === activeCategory;
+                return (
+                  <CarouselItem
+                    key={cat.id}
+                    className="basis-1/3 sm:basis-1/7 cursor-pointer"
+                    onClick={() => scrollToCategory(cat.id)}
+                  >
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={cat.foto || ""}
+                        alt={cat.nome}
+                        className={
+                          `rounded-full h-[70px] w-[70px] sm:h-[100px] sm:w-[100px] object-cover ` +
+                          (isActive ? "border-2 border-black" : "")
+                        }
+                      />
+                      <h2 className={
+                        `mt-2 text-center ` +
+                        (isActive ? "text-black" : "text-gray-500")
+                      }>
+                        {cat.nome}
+                      </h2>
+                    </div>
+                  </CarouselItem>
+                );
+              })}
             </CarouselContent>
           </Carousel>
         </div>
@@ -83,7 +116,7 @@ export function App() {
             <section
               key={cat.id}
               id={`category-${cat.id}`}
-              className="pt-8 scroll-mt-20"
+              className="pt-8 scroll-mt-[96px]"
             >
               <h2 className="text-xl font-semibold mb-4">{cat.nome}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -91,11 +124,7 @@ export function App() {
                   productsByCategory[cat.id].map(prod => (
                     <div
                       key={prod.id}
-                      className="
-                      flex flex-row items-start gap-4
-                      border p-4 rounded shadow hover:shadow-md
-                      transition cursor-pointer
-                    "
+                      className="flex flex-row items-start gap-4 border p-4 rounded shadow hover:shadow-md transition cursor-pointer"
                       onClick={() => {
                         setSelectedProduct(prod);
                         setDrawerOpen(true);
@@ -107,7 +136,6 @@ export function App() {
                         <p className="text-sm text-gray-600 my-2">{prod.descritivo}</p>
                         <p className="font-semibold">R$ {prod.preco}</p>
                       </div>
-
                       {/* Imagem à direita */}
                       <div className="flex-shrink-0">
                         <img
@@ -131,20 +159,20 @@ export function App() {
       <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
         <DrawerContent className="border-none bg-[#d10000]">
           <DrawerHeader>
-            <DrawerTitle className="text-center text-white">{selectedProduct?.nome}</DrawerTitle>
+            <DrawerTitle className="text-center text-white">
+              {selectedProduct?.nome}
+            </DrawerTitle>
           </DrawerHeader>
           <DrawerDescription className="mb-4 text-center text-gray-300">
             {selectedProduct?.descritivo}
           </DrawerDescription>
-          {selectedProduct?.foto && (
-            <div className="flex justify-center mb-4">
-              <img
-                src={selectedProduct.foto}
-                alt={selectedProduct.nome}
-                className="w-40 h-40 object-cover rounded"
-              />
-            </div>
-          )}
+          <div className="flex justify-center mb-4">
+            <img
+              src={selectedProduct?.foto || "imgs/logo-colorado.png"}
+              alt={selectedProduct?.nome}
+              className="w-40 h-40 object-cover rounded"
+            />
+          </div>
           <p className="font-semibold mb-4 text-center text-white">
             Preço: R$ {selectedProduct?.preco}
           </p>

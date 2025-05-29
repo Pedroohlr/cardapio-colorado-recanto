@@ -5,9 +5,10 @@ export interface Product {
   code: string;
   nome: string;
   descritivo: string;
-  preco: number;
+  preco: string | null;
   foto: string | null;
   category_id: number;
+  oculto: number
 }
 
 export async function getProducts(): Promise<Product[]> {

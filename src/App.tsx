@@ -50,29 +50,34 @@ export function App() {
     <>
       <main className="flex flex-col items-center">
         {/* Header */}
-        <section className="w-full sm:w-[65%] flex flex-col items-center mt-3">
-          <img
-            src="imgs/logo-colorado.png"
-            alt="logo colorado"
-            className="w-[200px] rounded-2xl border-2 mb-2 z-20 shadow-2xl"
-          />
-          <img src="imgs/banner.jpg" alt="banner" className="w-full mb-4" />
-          <div className="flex justify-center w-full px-4">
-            <Button
-              className="bg-[#d10000] hover:bg-[#da5f5f]"
+        <section className="w-full sm:w-[900px] flex flex-col items-center mt-3">
+          
+          <div className="flex justify-between flex-col sm:flex-row w-full mb-4">
+            <div>
+            </div>
+            <div className="sm:ml-40 flex justify-center ">
+              <img
+              src="imgs/logo-colorado.png"
+              alt="logo colorado"
+              className="w-[200px]"
+            />
+            </div>
+            <div className="flex justify-center items-center">
+              <Button
+              className="bg-[#ae3537] hover:bg-[#da5f5f]"
               onClick={() => window.location.href = "https://choperiacolorado.com.br/"}
             >
               <TiArrowBack />
               Voltar para o site
             </Button>
+            </div>
           </div>
+          <img src="imgs/banner.jpg" alt="banner" className=" mb-4" />
         </section>
-
-        <Separator className="my-4 bg-[#333]" />
 
         {/* Título estático */}
         <div className="w-full sm:w-[65%] p-2 mx-auto">
-          <h3 className="font-semibold text-2xl">Categorias</h3>
+          <h3 className="font-semibold text-2xl text-[#ae3537]">Categorias</h3>
         </div>
 
         {/* Carrossel sticky */}
@@ -118,7 +123,7 @@ export function App() {
               id={`category-${cat.id}`}
               className="pt-8 scroll-mt-[96px]"
             >
-              <h2 className="text-xl font-semibold mb-4">{cat.nome}</h2>
+              <h2 className="text-xl font-semibold mb-4 text-[#ae3537]">{cat.nome}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {productsByCategory[cat.id]?.length ? (
                   productsByCategory[cat.id].map(prod => (
@@ -132,7 +137,7 @@ export function App() {
                     >
                       {/* Texto à esquerda */}
                       <div className="flex-1 text-left">
-                        <h3 className="text-lg font-medium">{prod.nome}</h3>
+                        <h3 className="text-lg font-medium ">{prod.nome}</h3>
                         <p className="text-sm text-gray-600 my-2">{prod.descritivo}</p>
                         <p className="font-semibold">R$ {prod.preco}</p>
                       </div>

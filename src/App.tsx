@@ -91,12 +91,12 @@ export function App() {
             <h3 className="font-semibold text-2xl text-white">Dicas do colorado</h3>
           </div>
 
-          <div className="sm:w-[1000px] w-full">
+          <div className="sm:w-[1000px] w-full p-3">
             <Carousel 
               opts={{
                 align: "start"
               }}
-              className="w-full mb-5"
+              className="w-full mb-5 "
             >
               <CarouselContent>
                 {destaque.map((dest) => (

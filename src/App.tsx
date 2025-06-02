@@ -3,7 +3,7 @@ import { Loading } from "./components/Loading";
 import { useCategories } from "./hooks/useCategories";
 import type { Product } from "./services/products";
 import { useProducts } from "./hooks/useProcuts";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "./components/ui/carousel";
 import {
   Drawer,
   DrawerContent,
@@ -131,7 +131,7 @@ export function App() {
           <h3 className="font-semibold text-2xl text-[#ae3537]">Destaques</h3>
         </div>
 
-        <div className="sm:w-[900px] w-full">
+        <div className="sm:w-[1000px] w-fit">
           <Carousel 
             opts={{
               align: "center"
@@ -160,9 +160,9 @@ export function App() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-               <CarouselPrevious 
+               {/* <CarouselPrevious 
                   className="
-                    absolute left-80 top-90 
+                    absolute left-30 top-70
                     -translate-y-1/2 
                     bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
                     text-white p-2 rounded-full
@@ -172,13 +172,13 @@ export function App() {
 
                 <CarouselNext 
                   className="
-                    absolute right-80 top-90 
+                    absolute right-30 top-70 
                     -translate-y-1/2 
                     bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
                     text-white p-2 rounded-full
                     z-10
                   " 
-                />
+                /> */}
           </Carousel>
         </div>
         

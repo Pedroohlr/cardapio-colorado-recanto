@@ -3,7 +3,7 @@ import { Loading } from "./components/Loading";
 import { useCategories } from "./hooks/useCategories";
 import type { Product } from "./services/products";
 import { useProducts } from "./hooks/useProcuts";
-import { Carousel, CarouselContent, CarouselItem } from "./components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "./components/ui/carousel";
 import {
   Drawer,
   DrawerContent,
@@ -14,11 +14,14 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "./components/ui/button";
 import { TiArrowBack } from "react-icons/ti";
+import { useDestaque } from "./hooks/useDestaques";
 
 export function App() {
   const { categories, loading: loadingCats } = useCategories();
   const { products, loading: loadingProds } = useProducts();
-  const loading = loadingCats || loadingProds;
+  const { destaque, loading: loadingDest } = useDestaque();
+
+  const loading = loadingCats || loadingProds || loadingDest;
 
   // agrupa produtos por categoria
   const productsByCategory = useMemo(() => {
@@ -122,6 +125,63 @@ export function App() {
             </CarouselContent>
           </Carousel>
         </div>
+
+        {/* Título estático */}
+        <div className="w-full sm:w-[65%] p-2 mx-auto">
+          <h3 className="font-semibold text-2xl text-[#ae3537]">Destaques</h3>
+        </div>
+
+        <div className="sm:w-[900px] w-full">
+          <Carousel 
+            opts={{
+              align: "center"
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {destaque.map((dest) => (
+                <CarouselItem key={dest.id} className="basis-1/3 sm:basis-1/5">
+                  <div className="border-2 rounded-[5px] border-[#cacaca] flex flex-col justify-center items-center">
+                    <img 
+                      src={dest.foto || "imgs/logo-colorado.png"} 
+                      alt={`foto do produto ${dest.category_name}`} 
+                      className="w-50 h-50 object-cover rounded-t-[5px]"
+                    />
+                    <p 
+                      className="flex items-center justify-center bg-[#161616] px-2 text-white w-full"
+                    >
+                      {dest.category_name}
+                    </p>
+                    <div className="flex w-full m-2 p-1 flex-col">
+                      <p className="flex w-full">{dest.nome}</p>
+                      <p className="text-[#ae3537] font-bold">R$ {dest.preco}</p>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+               <CarouselPrevious 
+                  className="
+                    absolute left-80 top-90 
+                    -translate-y-1/2 
+                    bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
+                    text-white p-2 rounded-full
+                    z-10
+                  " 
+                />
+
+                <CarouselNext 
+                  className="
+                    absolute right-80 top-90 
+                    -translate-y-1/2 
+                    bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
+                    text-white p-2 rounded-full
+                    z-10
+                  " 
+                />
+          </Carousel>
+        </div>
+        
 
         {/* Seções de Produtos por Categoria */}
         <div className="w-full sm:w-[65%] p-2 space-y-8">

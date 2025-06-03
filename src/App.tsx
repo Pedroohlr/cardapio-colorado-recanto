@@ -83,10 +83,10 @@ export function App() {
           </div>
         </section>
 
-        <img src="imgs/banner.jpg" alt="banner" className="mb-4" />
+        <img src="imgs/banner.jpg" alt="banner" className="mb-4"/>
 
         {/* Título estático */}
-        <div className="w-full flex flex-col items-center justify-center py-3 gap-3">
+        <div className="w-full flex flex-col items-center justify-center py-3 gap-3 bg-[#ae3537]">
           <div className="w-full flex items-center justify-center rounded-2xl sm:w-[65%] p-2 mx-auto bg-[#ae3537]">
             <h3 className="font-semibold text-2xl text-white">Dicas do colorado</h3>
           </div>
@@ -101,18 +101,18 @@ export function App() {
               <CarouselContent>
                 {destaque.map((dest) => (
                   <CarouselItem key={dest.id} className="basis-1/2 sm:basis-1/5">
-                    <div className="border-2 rounded-[5px] border-[#cacaca] flex flex-col justify-center items-center">
+                    <div className="border rounded-[5px] border-[#ececec] flex flex-col justify-center items-center bg-white">
                       <img 
                         src={dest.foto || "imgs/logo-colorado.png"} 
                         alt={`foto do produto ${dest.category_name}`} 
-                        className="w-50 h-50 object-cover rounded-t-[5px]"
+                        className="w-50 h-50 object-cover rounded-t-[5px] bg-white"
                       />
                       <p 
                         className="flex items-center justify-center bg-[#161616] px-2 text-white w-full"
                       >
                         {dest.category_name}
                       </p>
-                      <div className="flex w-full m-2 p-1 flex-col">
+                      <div className="flex w-full m-2 p-1 flex-col bg-white">
                         <p className="flex w-full">{dest.nome}</p>
                         <p className="text-[#ae3537] font-bold">R$ {dest.preco}</p>
                       </div>
@@ -150,7 +150,7 @@ export function App() {
 
         {/* Carrossel sticky */}
         <div className="sticky top-0 bg-white z-20 w-full sm:w-[65%] p-2 mx-auto">
-          <Carousel opts={{ align: "start" }} className="my-2">
+          <Carousel opts={{ align: "start" }} className="my-1">
             <CarouselContent>
               {categoriesWithProducts.map(cat => {
                 const isActive = cat.id === activeCategory;

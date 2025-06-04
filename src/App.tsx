@@ -175,7 +175,7 @@ export function App() {
 
         <div className="bg-[#eeeeee] w-full flex justify-center items-center sticky top-0 z-20">
           <div className=" w-full sm:w-[1040px] p-2 mx-auto">
-            <h3 className="font-semibold text-2xl text-[#ae3537]">Categorias</h3>
+            <h3 className="font-semibold text-2xl text-[#ae3537] py-4">Categorias</h3>
             <Carousel opts={{ align: "start" }} className="my-1">
               <CarouselContent>
                 {categoriesWithProducts.map((cat) => {
@@ -208,6 +208,24 @@ export function App() {
                   );
                 })}
               </CarouselContent>
+               <CarouselPrevious
+                className="
+                  absolute left-67 top-[-33px]
+                  -translate-y-1/2 
+                  bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
+                  text-white p-2 rounded-full
+                  z-10
+                "
+              />
+              <CarouselNext
+                className="
+                  absolute right-4 top-[-33px] 
+                  -translate-y-1/2 
+                  bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
+                  text-white p-2 rounded-full
+                  z-10
+                "
+              />
             </Carousel>
           </div>
         </div>

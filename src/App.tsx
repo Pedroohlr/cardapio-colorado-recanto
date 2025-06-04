@@ -210,7 +210,7 @@ export function App() {
               </CarouselContent>
                <CarouselPrevious
                 className="
-                  absolute left-67 top-[-33px]
+                  absolute left-67 top-[-33px] sm:left-200
                   -translate-y-1/2 
                   bg-[#ae3537] hover:bg-red-300 hover:text-red-600 
                   text-white p-2 rounded-full

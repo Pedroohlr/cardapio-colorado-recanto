@@ -234,7 +234,9 @@ export function App() {
                         }}
                       >
                         <div className="flex-1 h-full flex flex-col justify-between text-left">
-                          <h3 className="text-lg font-medium">{prod.nome}</h3>
+                          <h3 className="text-lg font-medium flex flex-col">
+                            <span className="text-[14px] font-bold">{prod.code} - {prod.nome}</span>
+                          </h3>
                           <p className="text-sm text-gray-600 my-2">
                             {prod.descritivo}
                           </p>
@@ -251,7 +253,7 @@ export function App() {
                             loading="lazy"
                             className="w-32 h-32 object-cover rounded"
                           />
-                          <p className="text-[14px] font-bold">{prod.code}</p>
+                          
 
                         </div>
                       </div>

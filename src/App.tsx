@@ -126,7 +126,7 @@ export function App() {
             />
 
             {/* -------------------- Dicas do Colorado (CARROSSEL) -------------------- */}
-            <div className="w-full flex flex-col items-center justify-center py-3 gap-3 bg-[#ae3537]">
+            {/* <div className="w-full flex flex-col items-center justify-center py-3 gap-3 bg-[#ae3537]">
               <div className="w-full flex items-center justify-center rounded-2xl sm:w-[65%] p-2 mx-auto bg-[#ae3537]">
                 <h3 className="font-semibold text-2xl text-white">
                   Dicas do colorado
@@ -165,7 +165,7 @@ export function App() {
                   <CarouselNext className="absolute right-30 top-80 -translate-y-1/2 bg-[#ae3537] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
                 </Carousel>
               </div>
-            </div>
+            </div> */}
 
             {/* -------------------- Categorias (CARROSSEL STICKY) -------------------- */}
             <div className="bg-[#eeeeee] w-full flex justify-center items-center sticky top-0 z-20">

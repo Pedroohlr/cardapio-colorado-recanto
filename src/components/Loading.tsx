@@ -9,7 +9,7 @@ export const Loading = () => {
       transition={{ duration: 0.4, ease: 'easeInOut' }}
     >
       <img
-        src="imgs/logo-colorado.png"
+        src="imgs/logo-colorado.jpg"
         alt="Logo Colorado"
         className="w-40 h-auto rounded-[12px]"
         loading="eager"

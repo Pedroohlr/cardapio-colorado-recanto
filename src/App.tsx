@@ -1,9 +1,9 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Loading } from "./components/Loading";
 import { useCategories } from "./hooks/useCategories";
 import { useProducts } from "./hooks/useProcuts";
-import { useDestaque } from "./hooks/useDestaques";
+// import { useDestaque } from "./hooks/useDestaques";
 import type { Product } from "./services/products";
 
 import {
@@ -35,8 +35,9 @@ export function App() {
   // Carregamento de categorias, produtos e destaque
   const { categories, loading: loadingCats } = useCategories();
   const { products, loading: loadingProds } = useProducts();
-  const { destaque, loading: loadingDest } = useDestaque();
-  const loading = loadingCats || loadingProds || loadingDest;
+  // const { destaque, loading: loadingDest } = useDestaque();
+  const loading = loadingCats || loadingProds 
+  // || loadingDest;
 
   // Estados para abrir/fechar Drawer e produto selecionado
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(
@@ -97,16 +98,16 @@ export function App() {
                 <div className="sm:ml-40 flex justify-center">
                   <a href="https://choperiacolorado.com.br">
                     <img
-                      src="imgs/logo-colorado.png"
+                      src="imgs/logo-colorado.jpg"
                       alt="logo colorado"
-                      className="w-[200px]"
+                      className=""
                       loading="lazy"
                     />
                   </a>
                 </div>
                 <div className="flex justify-center items-center">
                   <Button
-                    className="bg-[#ae3537] hover:bg-[#da5f5f] hidden sm:flex"
+                    className="bg-[#48150A] hover:bg-[#da5f5f] hidden sm:flex"
                     onClick={() =>
                       (window.location.href =
                         "https://choperiacolorado.com.br/")
@@ -119,15 +120,14 @@ export function App() {
             </section>
 
             <img
-              src="imgs/banner.jpg"
+              src="imgs/banner2.jpg"
               alt="banner"
-              className="mb-4"
               loading="lazy"
             />
 
             {/* -------------------- Dicas do Colorado (CARROSSEL) -------------------- */}
-            <div className="w-full flex flex-col items-center justify-center py-3 gap-3 bg-[#ae3537]">
-              <div className="w-full flex items-center justify-center rounded-2xl sm:w-[65%] p-2 mx-auto bg-[#ae3537]">
+            {/* <div className="w-full flex flex-col items-center justify-center py-3 gap-3 bg-[#48150A]">
+              <div className="w-full flex items-center justify-center rounded-2xl sm:w-[65%] p-2 mx-auto bg-[#48150A]">
                 <h3 className="font-semibold text-2xl text-white">
                   Dicas do colorado
                 </h3>
@@ -153,7 +153,7 @@ export function App() {
                           </p>
                           <div className="flex w-full m-2 p-1 flex-col bg-white">
                             <p className="flex w-full">{dest.nome}</p>
-                            <p className="text-[#ae3537] font-bold">
+                            <p className="text-[#48150A] font-bold">
                               R$ {dest.preco}
                             </p>
                           </div>
@@ -161,19 +161,19 @@ export function App() {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="absolute left-30 top-80 -translate-y-1/2 bg-[#ae3537] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
-                  <CarouselNext className="absolute right-30 top-80 -translate-y-1/2 bg-[#ae3537] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
+                  <CarouselPrevious className="absolute left-30 top-80 -translate-y-1/2 bg-[#48150A] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
+                  <CarouselNext className="absolute right-30 top-80 -translate-y-1/2 bg-[#48150A] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
                 </Carousel>
               </div>
-            </div>
+            </div> */}
 
             {/* -------------------- Categorias (CARROSSEL STICKY) -------------------- */}
-            <div className="bg-[#eeeeee] w-full flex justify-center items-center sticky top-0 z-20">
+            <div className="bg-[#F2D3B1] w-full flex justify-center items-center sticky top-0 z-20">
               <div className="w-full sm:w-[1040px] p-2 mx-auto">
-                <h3 className="font-semibold text-2xl text-[#ae3537] py-4">
+                <h3 className="font-semibold text-2xl text-[#48150A] py-4">
                   Categorias
                 </h3>
-                <Carousel opts={{ align: "start" }} className="my-1">
+                <Carousel opts={{ align: "start",dragFree: true }} className="my-1">
                   <CarouselContent>
                     {categoriesWithProducts.map((cat) => {
                       const isActive = cat.id === activeCategory;
@@ -196,7 +196,7 @@ export function App() {
                             <h2
                               className={
                                 `mt-2 text-center ` +
-                                (isActive ? "text-black" : "text-gray-500")
+                                (isActive ? "text-black" : "text-[#424242]")
                               }
                             >
                               {cat.nome}
@@ -206,8 +206,8 @@ export function App() {
                       );
                     })}
                   </CarouselContent>
-                  <CarouselPrevious className="absolute left-67 top-[-33px] sm:left-200 -translate-y-1/2 bg-[#ae3537] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
-                  <CarouselNext className="absolute right-4 top-[-33px] -translate-y-1/2 bg-[#ae3537] hover:bg-red-300 hover:text-red-600 text-white p-2 rounded-full z-10" />
+                  <CarouselPrevious className="absolute left-60 top-[-33px] sm:left-200 -translate-y-1/2 bg-[#48150A] hover:bg-[#48150a5e] hover:text-[#48150A] text-white p-2 rounded-full z-10" />
+                  <CarouselNext className="absolute right-4 top-[-33px] -translate-y-1/2 bg-[#48150A] hover:bg-[#48150a5e] hover:text-[#48150A] text-white p-2 rounded-full z-10" />
                 </Carousel>
               </div>
             </div>
@@ -220,7 +220,7 @@ export function App() {
                   id={`category-${cat.id}`}
                   className="pt-8 scroll-mt-[96px]"
                 >
-                  <h2 className="text-xl font-semibold mb-4 text-[#ae3537]">
+                  <h2 className="text-xl font-semibold mb-4 text-[#48150A]">
                     {cat.nome}
                   </h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -235,20 +235,20 @@ export function App() {
                       >
                         <div className="flex-1 h-full flex flex-col justify-between text-left">
                           <h3 className="text-lg font-medium flex flex-col">
-                            <span className="text-[14px] font-bold">{prod.code} - {prod.nome}</span>
+                            <span className="text-[14px] text-[#424242] font-bold">{prod.code} - {prod.nome}</span>
                           </h3>
                           <p className="text-sm text-gray-600 my-2">
                             {prod.descritivo}
                           </p>
                           {prod.preco !== null && (
-                            <p className="font-semibold text-[#ae3537]">
+                            <p className="font-semibold text-[#48150A]">
                               R$ {prod.preco}
                             </p>
                           )}
                         </div>
                         <div className="flex-shrink-0 h-full items-center flex justify-center flex-col ">
                           <img
-                            src={prod.foto || "imgs/logo-colorado.png"}
+                            src={prod.foto || "imgs/logo-colorado-produto.jpg"}
                             alt={prod.nome}
                             loading="lazy"
                             className="w-32 h-32 object-cover rounded"
@@ -266,7 +266,7 @@ export function App() {
 
           {/* -------------------- Drawer de detalhes do produto -------------------- */}
           <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-            <DrawerContent className="border-none bg-[#ae3537]">
+            <DrawerContent className="border-none bg-[#48150A]">
               <DrawerHeader>
                 <DrawerTitle className="text-center text-white">
                   {selectedProduct?.nome}
@@ -278,7 +278,7 @@ export function App() {
               <div className="flex flex-col items-center justify-center mb-4">
                 <p className="text-[16px] text-gray-200 font-bold">{selectedProduct?.code}</p>
                 <img
-                  src={selectedProduct?.foto || "imgs/logo-colorado.png"}
+                  src={selectedProduct?.foto || "imgs/logo-colorado-produto.jpg"}
                   alt={selectedProduct?.nome}
                   loading="lazy"
                   className="w-40 h-40 object-cover rounded cursor-pointer"

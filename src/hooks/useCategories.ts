@@ -10,6 +10,6 @@ export function useCategories() {
         getCategories()
         .then(setCategories)
         .finally(() => setLoading(false))
-    })
+    }, [])
     return { categories, loading }
 }

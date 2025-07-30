@@ -10,6 +10,6 @@ export function useDestaque() {
         getDestaques()
         .then(setDestaque)
         .finally(() => setLoading(false));
-    });
+    }, []);
     return { destaque, loading }
 }

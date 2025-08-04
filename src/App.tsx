@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Loading } from "./components/Loading";
+import { Login } from "./components/Login";
+import { useAuth } from "./hooks/useAuth";
 import { useCategories } from "./hooks/useCategories";
 import { useProducts } from "./hooks/useProcuts";
 // import { useDestaque } from "./hooks/useDestaques";
@@ -32,6 +34,9 @@ import {
 } from "@/components/ui/dialog";
 
 export function App() {
+  // Hook de autenticação
+  const { isAuthenticated, isCheckingAuth, login, logout } = useAuth();
+
   // Carregamento de categorias, produtos e destaque
   const { categories, loading: loadingCats } = useCategories();
   const { products, loading: loadingProds } = useProducts();
@@ -80,6 +85,16 @@ export function App() {
     }
   };
   
+  // Se ainda está verificando autenticação, mostrar loading
+  if (isCheckingAuth) {
+    return <Loading />;
+  }
+
+  // Se não está autenticado, mostrar tela de login
+  if (!isAuthenticated) {
+    return <Login onLoginSuccess={login} />;
+  }
+
   return (
     <>
       {/* Splash screen animada */}
@@ -105,7 +120,7 @@ export function App() {
                     />
                   </a>
                 </div>
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center gap-2">
                   <Button
                     className="bg-[#48150A] hover:bg-[#da5f5f] hidden sm:flex"
                     onClick={() =>
@@ -114,6 +129,13 @@ export function App() {
                     }
                   >
                     <TiArrowBack /> Voltar para o site
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={logout}
+                    className="text-sm bg-[#ae3537] hover:bg-[#8a2a2c] text-white border-[#ae3537]"
+                  >
+                    Sair
                   </Button>
                 </div>
               </div>
